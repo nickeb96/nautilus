@@ -26,4 +26,4 @@ function $uninstall_event --on-event $uninstall_event
     set -eg LIBRARY_PATH
     set -eg PYTHONPATH
     set -eg PYTHONSTARTUP
-ened
+end
