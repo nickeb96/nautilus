@@ -1,3 +1,7 @@
 function vi --wraps=nvim
-    command nvim $argv
+    if type -q nvim
+        command nvim $argv
+    else
+        command vi $argv
+    end
 end

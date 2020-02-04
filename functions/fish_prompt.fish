@@ -21,12 +21,14 @@ function fish_prompt
             set job_text "[$job_count]"
         end
     end
-    if [ (git rev-parse --is-inside-work-tree 2>/dev/null; or echo) = true ]
+    if type -q git && [ (git rev-parse --is-inside-work-tree 2>/dev/null; or echo) = true ]
         set -l git_root (git rev-parse --show-toplevel)
         #set -l git_root (realpath (git rev-parse --git-dir)/..)
         set -l git_name (basename $git_root)
         set -l git_wd (string sub --start (string length $git_root/) $PWD)
-        set -l git_branch (git branch --show-current)
+        # This only works on git versions >=2.21
+        #set -l git_branch (git branch --show-current)
+        set -l git_branch (git branch | grep '*' | sed -E 's/\* ([[:alpha:]]+)/\1/')
         set -l git_hash (git rev-parse --short HEAD 2>/dev/null)
         set -l git_status (string sub -s 2 -l 1 -- (git status -s 2>/dev/null))
         set -l git_info

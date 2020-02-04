@@ -1,3 +1,7 @@
 function view --wraps=nvim
-    command nvim -RM $argv
+    if type -q nvim
+        command nvim -RM $argv
+    else
+        command view $argv
+    end
 end
