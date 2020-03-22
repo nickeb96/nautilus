@@ -1,5 +1,5 @@
 
-# Prefered Color Pallet:
+# Old Color Pallet:
 #
 #   black       '0x000000'
 #   red         '0xd54e53'
@@ -18,27 +18,46 @@
 #   brcyan      '0x54ced6'
 #   brwhite     '0xffffff'
 
+
+set -l black        000000
+set -l red          d81e00
+set -l green        5ea702
+set -l yellow       cfae00
+set -l blue         427ab3
+set -l magenta      89658e
+set -l cyan         00a7aa
+set -l white        dbded8
+set -l brblack      666666
+set -l brred        ff3334
+set -l brgreen      9ec400
+set -l bryellow     e7c547
+set -l brblue       7aa6da
+set -l brmagenta    b77ee0
+set -l brcyan       54ced6
+set -l brwhite      ffffff
+
+
 set -g fish_color_autosuggestion 555555
 set -g fish_color_cancel --reverse
-set -g fish_color_command b9ca4a
-set -g fish_color_comment 666666
-set -g fish_color_cwd --bold 7aa6da
-set -g fish_color_cwd_root --bold d54e53
-set -g fish_color_end 54ced6
-set -g fish_color_error ff3334
-set -g fish_color_escape --bold e7c547
+set -g fish_color_command $green
+set -g fish_color_comment $brblack
+set -g fish_color_cwd --bold $blue
+set -g fish_color_cwd_root --bold $red
+set -g fish_color_end $brcyan
+set -g fish_color_error $brred
+set -g fish_color_escape --bold $bryellow
 set -g fish_color_history_current --bold
-set -g fish_color_host 9ec400
-set -g fish_color_match --background=7aa6da
+set -g fish_color_host $brgreen
+set -g fish_color_match --background=$blue
 set -g fish_color_normal normal
-set -g fish_color_operator b77ee0
+set -g fish_color_operator $brmagenta
 set -g fish_color_param normal
-set -g fish_color_quote e6c547
-set -g fish_color_redirection 54ced6
-set -g fish_color_search_match e7c547 --background=666666
-set -g fish_color_selection eaeaea --bold --background=666666
-set -g fish_color_status d54e53
-set -g fish_color_user 7aa6da
+set -g fish_color_quote $yellow
+set -g fish_color_redirection $brcyan
+set -g fish_color_search_match $bryellow --background=$brblack
+set -g fish_color_selection $white --bold --background=$brblack
+set -g fish_color_status $red
+set -g fish_color_user $brblue
 set -g fish_color_valid_path --underline
 
 
