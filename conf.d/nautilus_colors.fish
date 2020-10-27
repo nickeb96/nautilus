@@ -1,4 +1,3 @@
-
 # Old Color Pallet:
 #
 #   black       '0x000000'
@@ -61,7 +60,7 @@ set -g fish_color_user $brblue
 set -g fish_color_valid_path --underline
 
 
-set -l uninstall_event (basename (status -f) .fish){_uninstall}
+set -l uninstall_event (basename (status -f) .fish)_uninstall
 function $uninstall_event --on-event $uninstall_event
     set -l color_variables fish_color_autosuggestion fish_color_cancel \
         fish_color_command fish_color_commentfish_color_cwd \
@@ -75,4 +74,3 @@ function $uninstall_event --on-event $uninstall_event
         set -eg $var
     end
 end
-

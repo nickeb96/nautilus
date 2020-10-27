@@ -1,41 +1,42 @@
 function vigpg -a file -d 'View and modify encrypted *.gpg files with vi'
-    if not string length -q "$file"
-        echo 'Must specify a *.gpg file to edit.'
+    if not string length -q $file
+        echo 'Must specify a *.gpg file to edit.' >&2
         return 1
     end
 
     if [ (count $argv) -gt 1 ]
-        echo 'Only accepts one file at a time.'
+        echo 'Only accepts one file at a time.' >&2
         return 1
     end
 
-    if not string match -q '*.gpg' "$file"
-        echo you fucked up
+    if not string match -q '*.gpg' $file
+        echo 'Not a *.gpg file' >&2
         return 1
     end
 
-    set len (string length "$file")
+    set len (string length $file)
     set pid %self
 
-    set filebase (string sub --start 1 --length (math "$len - 4") "$file")
+    set filebase (string sub --start 1 --length (math "$len - 4") $file)
     set temp "vigpg-$pid-$filebase"
 
-    touch "$temp"
-    chmod u=rw,go= "$temp"
+    touch $temp
+    chmod u=rw,go= $temp
 
-    if test -f "$file"
+    if test -f $file
+    and test -s $file
         gpg --yes -o "$temp" -d "$file"
     end
 
-    set start (stat -f '%Dm%n' "$temp")
+    set start (stat -f '%Dm%n' $temp)
 
-    vi -c 'set noswapfile' -c 'set viminfo=' -- "$temp"
+    vi -c 'set noswapfile' -c 'set viminfo=' -- $temp
 
-    set stop (stat -f '%Dm%n' "$temp")
+    set stop (stat -f '%Dm%n' $temp)
 
-    if [ "$stop" -gt "$start" ]
-        gpg --yes -o "$file" -r 'Nicholas Boyle' -e "$temp"
+    if [ $stop -gt $start ]
+        gpg --yes -o $file -r 'Nicholas Boyle' -e $temp
     end
 
-    rm "$temp"
+    rm $temp
 end
