@@ -14,29 +14,31 @@ function vigpg -a file -d 'View and modify encrypted *.gpg files with vi'
         return 1
     end
 
-    set len (string length $file)
-    set pid %self
+    set -l len (string length $file)
+    set -l pid %self
 
-    set filebase (string sub --start 1 --length (math "$len - 4") $file)
-    set temp "vigpg-$pid-$filebase"
+    set temp_dir (mktemp -d -t "vigpg")
+    chmod u=rwx,go= $temp_dir
 
-    touch $temp
-    chmod u=rw,go= $temp
+    set -l file_base "$pid-"(basename -s .gpg $file)
+    set -l temp_file $temp_dir/$file_base
+    touch $temp_file
+    chmod u=rw,go= $temp_file
 
-    if test -f $file
-    and test -s $file
-        gpg --yes -o "$temp" -d "$file"
+    if test -f $file -a -s $file
+        gpg --yes -o $temp_file -d $file
     end
 
-    set start (stat -f '%Dm%n' $temp)
+    set -l start (stat -f '%Dm%n' $temp_file)
 
-    vi -c 'set noswapfile' -c 'set viminfo=' -- $temp
+    vi -c 'set noswapfile' -c 'set viminfo=' -- $temp_file
 
-    set stop (stat -f '%Dm%n' $temp)
+    set -l stop (stat -f '%Dm%n' $temp_file)
 
     if [ $stop -gt $start ]
-        gpg --yes -o $file -r 'Nicholas Boyle' -e $temp
+        gpg --yes -o $file -r 'Nicholas Boyle' -e $temp_file
     end
 
-    rm $temp
+    rm $temp_file
+    rmdir $temp_dir
 end

@@ -1,14 +1,14 @@
 function cat --wraps=cat
-    set -l markdown 1
+    set -l markdown false
     for arg in $argv
         if string match -q -- "*.md" $arg
-            set markdown 0
+            set markdown true
         else
-            set markdown 1
+            set markdown false
             break
         end
     end
-    if test $markdown = 0
+    if $markdown
         command fold -s $argv
     else
         command cat $argv
