@@ -17,10 +17,10 @@ function vigpg -a file -d 'View and modify encrypted *.gpg files with vi'
     set -l len (string length $file)
     set -l pid %self
 
-    set temp_dir (mktemp -d -t "vigpg")
+    set temp_dir (mktemp -d -t "vigpg-$pid")
     chmod u=rwx,go= $temp_dir
 
-    set -l file_base "$pid-"(basename -s .gpg $file)
+    set -l file_base (basename -s .gpg $file)
     set -l temp_file $temp_dir/$file_base
     touch $temp_file
     chmod u=rw,go= $temp_file
@@ -31,12 +31,13 @@ function vigpg -a file -d 'View and modify encrypted *.gpg files with vi'
 
     set -l start (stat -f '%Dm%n' $temp_file)
 
-    vi -c 'set noswapfile' -c 'set viminfo=' -- $temp_file
+    vi -c 'set noswapfile' -c 'set viminfo=' \
+        -c 'set statusline=%t\ %m%=%y\ \ \ %-14.(%l:%c%V%)\ %P' -- $temp_file
 
     set -l stop (stat -f '%Dm%n' $temp_file)
 
     if [ $stop -gt $start ]
-        gpg --yes -o $file -r 'Nicholas Boyle' -e $temp_file
+        gpg --yes --default-recipient-self -o $file -e $temp_file
     end
 
     rm $temp_file
