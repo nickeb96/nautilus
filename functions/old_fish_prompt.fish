@@ -1,4 +1,4 @@
-function fish_prompt
+function old_fish_prompt
     set -l last_status $status
     set -l color_cwd
     set -l suffix
