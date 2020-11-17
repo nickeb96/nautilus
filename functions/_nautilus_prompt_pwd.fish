@@ -1,4 +1,4 @@
-function prompt_pwd
+function _nautilus_prompt_pwd
     set -q fish_prompt_pwd_dir_length
     or set -l fish_prompt_pwd_dir_length 1
     set -q fish_prompt_pwd_use_ellipsis
