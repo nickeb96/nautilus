@@ -14,7 +14,7 @@ for i in (seq 1 2 (count $abbreviations))
 end
 
 
-set -l uninstall_event (basename (status -f) .fish)_uninstall
+set -l uninstall_event (basename (status filename) .fish)_uninstall
 function $uninstall_event --on-event $uninstall_event --inherit-variable abbreviations
     for i in (seq 1 2 (count $abbreviations))
         abbr -eg $abbreviations[$i]

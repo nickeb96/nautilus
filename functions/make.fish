@@ -1,6 +1,6 @@
-function make --wraps=make
+function make --wraps=make --description 'Look for Makefile up to 5 directories back and run it there.'
     set -l search_depth 5
-    if status --is-interactive
+    if status is-interactive
         # check parent directories for a Makefile and do those
         pushd .
         for i in (seq $search_depth)

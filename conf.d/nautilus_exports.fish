@@ -12,7 +12,7 @@ set -gx PYTHONPATH ~/.local/lib/python3
 set -gx PYTHONSTARTUP ~/.config/python/startup.py
 
 
-set -l uninstall_event (basename (status -f) .fish)_uninstall
+set -l uninstall_event (basename (status filename) .fish)_uninstall
 function $uninstall_event --on-event $uninstall_event
     set -eg EDITOR
     set -eg PAGER
