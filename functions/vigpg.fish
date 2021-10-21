@@ -1,5 +1,5 @@
 function vigpg -a file -d 'View and modify encrypted *.gpg files with vi'
-    if not string length -q $file
+    if not string length -q -- $file
         echo 'Must specify a *.gpg file to edit.' >&2
         return 1
     end
@@ -9,12 +9,12 @@ function vigpg -a file -d 'View and modify encrypted *.gpg files with vi'
         return 1
     end
 
-    if not string match -q '*.gpg' $file
+    if not string match -q '*.gpg' -- $file
         echo 'Not a *.gpg file' >&2
         return 1
     end
 
-    set -l len (string length $file)
+    set -l len (string length -- $file)
     set -l pid %self
 
     set temp_dir (mktemp -d -t "vigpg-$pid")
