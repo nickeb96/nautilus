@@ -1,7 +1,7 @@
 set -l abbreviations \
     cp 'cp -i' \
     mv 'mv -i' \
-    less 'less -RXS' \
+    less 'less -RXSF' \
     now 'date "+%I:%M %p"' \
     today 'date "+%A - %m/%d/%y"' \
     tree 'tree -C' \
@@ -15,7 +15,7 @@ end
 
 
 set -l uninstall_event (basename (status filename) .fish)_uninstall
-function $uninstall_event --on-event $uninstall_event --inherit-variable abbreviations
+function _$uninstall_event --on-event $uninstall_event --inherit-variable abbreviations
     for i in (seq 1 2 (count $abbreviations))
         abbr -eg $abbreviations[$i]
     end
