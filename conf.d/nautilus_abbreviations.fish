@@ -2,6 +2,8 @@ set -l abbreviations \
     cp 'cp -i' \
     mv 'mv -i' \
     less 'less -RXSF' \
+    grep 'grep -E' \
+    sed 'sed -E' \
     now 'date "+%I:%M %p"' \
     today 'date "+%A - %m/%d/%y"' \
     tree 'tree -C' \

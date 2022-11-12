@@ -1,7 +1,7 @@
-function pss -d 'Shorthand for listing processes on the machine'
+function pss -d 'List processes on the machine'
     if [ (uname) = 'Darwin' ]
-        command ps -Aco 'user,pid,%cpu,%mem,comm'
+        command ps -Aco 'user,pid,%cpu,%mem,state,comm'
     else if [ (uname) = 'Linux' ]
-        command ps -Ao 'user,pid,%cpu,%mem,comm'
+        command ps -Ao 'user,pid,%cpu,%mem,state,comm'
     end
 end

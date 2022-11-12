@@ -1,4 +1,4 @@
-function ascii -d 'Prints an ascii table'
+function ascii -d 'Print an ascii table'
     set -l fmt '%d'
     if count $argv >/dev/null && [ $argv[1] = hex ]
         set fmt '%x'

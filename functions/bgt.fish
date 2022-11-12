@@ -1,8 +1,9 @@
-function bgt
-    if [ "$argv[1]" = '-k' ] || [ "$argv[1]" = '--kill' ]
-        return
+function bgt --description 'Spawn a background terminal'
+    switch $argv[1]
+        case -k --kill
+            return
     end
-    if ! set -q bgt
+    if not set -q bgt
         set -l alacritty_options \
             -o window.dimensions.columns=80 \
             -o window.dimensions.lines=40 \
@@ -27,10 +28,10 @@ function bgt
                     set the frontmost of proc to true
                 end repeat
             end tell
-        "   | osascript
+        " | osascript
     end
     if [ (count $argv) -gt 0 ]
-        while ! set -q bgt
+        while not set -q bgt
             sleep 0.1
         end
         command $argv &>$bgt &
